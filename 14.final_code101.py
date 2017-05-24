@@ -20,8 +20,16 @@ while True :
     mask2 = cv2.inRange(hsv, lower_blue, upper_blue)
     mask3 = cv2.inRange(hsv, lower_red, upper_red)
 
+    image1, contours1, hierarchy1 = cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    image2, contours2, hierarchy2 = cv2.findContours(mask2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
+    if len(contours1)>200:
+        print "GREEEENNN..!!"
 
+    elif len(contours2)>200:
+        print ' BLUUEEE'
+
+    
     kernel = np.ones((5,5), np.uint8)
     
     dilation1 = cv2.dilate(mask1, kernel, iterations=1)
