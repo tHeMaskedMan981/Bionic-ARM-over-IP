@@ -1,0 +1,59 @@
+#include<Servo.h>
+Servo asd;
+int bend = 1;
+int incomingByte = 0;
+ 
+
+void setup() {
+Serial.begin(9600);
+asd.attach(9);
+delay(5000);
+asd.write(0);
+}
+
+void loop() {
+  
+  
+while (1) 
+{  
+  if (Serial.available() > 0) {
+// read the incoming byte:
+incomingByte = Serial.read();
+
+//Serial.println(incomingByte);
+//Serial.print(incomingByte); 
+// say what you got:
+if(incomingByte == 49) // ASCII printable characters: 49 means number 1
+{
+  if (bend==0)
+  continue;
+  
+for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(10);
+  if (i==180)
+  bend=0;
+  
+}
+}
+ else if(incomingByte == 48)  // ASCII printable characters: 48 means number 0
+{
+  if (bend==1)
+  continue;
+  
+  for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(10);
+  if (i==0)
+  bend=1;
+}
+}
+  }
+
+//asd.write(55);
+//delay(2000);
+//asd.write(120);
+//delay(2000);
+}}
