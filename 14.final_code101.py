@@ -1,5 +1,9 @@
 import cv2
 import numpy as np
+import serial
+
+ser = serial.Serial('COM3', 9600)
+ser.write('1')
 
 cap = cv2.VideoCapture(0)
 
@@ -23,12 +27,21 @@ while True :
     image1, contours1, hierarchy1 = cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     image2, contours2, hierarchy2 = cv2.findContours(mask2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
-    if len(contours1)>200:
-        print "GREEEENNN..!!"
+    print len(contours1)
+    if len(contours1)>100:
+        ser.write('1')
 
-    elif len(contours2)>200:
-        print ' BLUUEEE'
+    else :
+        ser.write('0')
 
+    print 'blue' + str(len(contours2))
+    if len(contours2)>600:
+        ser.write('2')
+    else :
+        ser.write('3')
+
+   
+        
     
     kernel = np.ones((5,5), np.uint8)
     
