@@ -2,10 +2,12 @@ import cv2
 import numpy as np
 import serial
 
-ser = serial.Serial('COM3', 9600)
+ser = serial.Serial('COM4', 9600)
 ser.write('1')
 
 cap = cv2.VideoCapture(0)
+counter =0
+sum=0
 
 while True :
     a,frame = cap.read()
@@ -27,18 +29,25 @@ while True :
     image1, contours1, hierarchy1 = cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     image2, contours2, hierarchy2 = cv2.findContours(mask2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
+    
     print len(contours1)
-    if len(contours1)>100:
-        ser.write('1')
+    sum+=len(contours1)
+    counter+=1
+    if (counter ==10):
+        avg=sum/10
+        counter=0
+        sum=0
+        if avg>100:
+            ser.write('1')
 
-    else :
-        ser.write('0')
+        else :
+            ser.write('0')
 
-    print 'blue' + str(len(contours2))
-    if len(contours2)>600:
-        ser.write('2')
-    else :
-        ser.write('3')
+    #print 'blue' + str(len(contours2))
+    #if len(contours2)>600:
+     #   ser.write('2')
+    #else :
+     #   ser.write('3')
 
    
         
