@@ -33,8 +33,8 @@ while True :
     print len(contours1)
     sum+=len(contours1)
     counter+=1
-    if (counter ==10):
-        avg=sum/10
+    if (counter ==5):
+        avg=sum/5
         counter=0
         sum=0
         if avg>100:
