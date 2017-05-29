@@ -1,0 +1,148 @@
+#include<Servo.h>
+Servo asd;
+int bend8 = 1;  //finger 1
+int bend9 = 1;  //finger 3
+int bend10 = 1; // finger 2
+int bend12 = 1; // finger 4
+int bend13 = 1;// thumb
+int check =1;
+int incomingByte = 0;
+ 
+
+void setup() {
+Serial.begin(9600);
+delay(2000);
+
+
+
+}
+
+void loop() {
+if (check==1)
+{
+  asd.attach(8);
+asd.write(180);
+delay(500);
+asd.attach(9);
+asd.write(0);
+delay(500);
+asd.attach(10);
+asd.write(180);
+delay(500);
+asd.attach(12);
+asd.write(0);
+delay(500);
+check=1;
+}
+   
+while (1) 
+{  
+  if (Serial.available() > 0) {
+// read the incoming byte:
+incomingByte = Serial.read();
+
+if(incomingByte == '1') // ASCII printable characters: 49 means number 1
+{
+  if (bend8==0)
+  continue;
+   asd.attach(8);
+for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(5);
+  if (i==0)
+  bend8=0;  }
+  delay(500);
+}
+ else if(incomingByte == '0')  // ASCII printable characters: 48 means number 0
+{
+  if (bend8==1)
+  continue; 
+  asd.attach(8); 
+  for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(5);
+  if (i==180)
+  bend8=1;} delay(500);}
+
+  if(incomingByte == 50) // ASCII printable characters:  means number 2
+{
+  if (bend10==1)
+  continue;
+  asd.attach(10);
+for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(5);
+  if (i==180)
+  bend10=1;  }
+  delay(500);
+}
+ else if(incomingByte == 51)  // ASCII printable characters: means number 3
+{
+  if (bend10==0)
+  continue; 
+  asd.attach(10); 
+  for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(5);
+  if (i==0)
+  bend10=0;}
+  delay(500);}
+
+    if(incomingByte == 53) // ASCII printable characters:  means number 5
+{
+  
+  if (bend9==0)
+  continue;
+  asd.attach(9);
+for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(5);
+  if (i==180)
+  bend9=0;  }
+  delay(500);
+}
+ else if(incomingByte == 52)  // ASCII printable characters:  means number 4
+{
+  if (bend9==1)
+  continue; 
+  asd.attach(9); 
+  for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(5);
+  if (i==0)
+  bend9=1;}
+  delay(500);}
+
+      if(incomingByte == 55) // ASCII printable characters:  means number 7
+{
+  if (bend12==0)
+  continue;
+  asd.attach(7);
+for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(5);
+  if (i==180)
+  bend12=0;  }
+  delay(500);
+}
+ else if(incomingByte == 54)  // ASCII printable characters:  means number 6
+{
+  if (bend12==1)
+  continue;  
+  asd.attach(7);
+  for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(5);
+  if (i==0)
+  bend12=1;}
+  delay(500);}
+  }}}
+
