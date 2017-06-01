@@ -3,17 +3,15 @@ Servo asd;
 int bend8 = 1;  //finger 1
 int bend9 = 1;  //finger 3
 int bend10 = 1; // finger 2
-int bend12 = 1; // finger 4
-int bend13 = 1;// thumb
+int bend7 = 1; // finger 4
+int bend11 = 1;// thumb
 int check =1;
 int incomingByte = 0;
  
 
 void setup() {
 Serial.begin(9600);
-delay(2000);
-
-
+delay(1000);
 
 }
 
@@ -21,17 +19,20 @@ void loop() {
 if (check==1)
 {
   asd.attach(8);
-asd.write(180);
-delay(500);
+asd.write(107);
+delay(700);
 asd.attach(9);
 asd.write(0);
-delay(500);
+delay(700);
 asd.attach(10);
 asd.write(180);
-delay(500);
-asd.attach(12);
+delay(700);
+asd.attach(7);
 asd.write(0);
-delay(500);
+delay(700);
+asd.attach(11);
+asd.write(180);
+delay(700);
 check=1;
 }
    
@@ -46,25 +47,25 @@ if(incomingByte == '1') // ASCII printable characters: 49 means number 1
   if (bend8==0)
   continue;
    asd.attach(8);
-for (int i=180; i>=0; i--)
+for (int i=107; i>=0; i--)
 {
   asd.write(i);
   delay(5);
   if (i==0)
   bend8=0;  }
-  delay(500);
+  delay(700);
 }
  else if(incomingByte == '0')  // ASCII printable characters: 48 means number 0
 {
   if (bend8==1)
   continue; 
   asd.attach(8); 
-  for (int i=0; i<=180; i++)
+  for (int i=0; i<=107; i++)
 {
   asd.write(i);
   delay(5);
-  if (i==180)
-  bend8=1;} delay(500);}
+  if (i==107)
+  bend8=1;} delay(700);}
 
   if(incomingByte == 50) // ASCII printable characters:  means number 2
 {
@@ -77,7 +78,7 @@ for (int i=0; i<=180; i++)
   delay(5);
   if (i==180)
   bend10=1;  }
-  delay(500);
+  delay(700);
 }
  else if(incomingByte == 51)  // ASCII printable characters: means number 3
 {
@@ -90,7 +91,7 @@ for (int i=0; i<=180; i++)
   delay(5);
   if (i==0)
   bend10=0;}
-  delay(500);}
+  delay(700);}
 
     if(incomingByte == 53) // ASCII printable characters:  means number 5
 {
@@ -104,7 +105,7 @@ for (int i=0; i<=180; i++)
   delay(5);
   if (i==180)
   bend9=0;  }
-  delay(500);
+  delay(700);
 }
  else if(incomingByte == 52)  // ASCII printable characters:  means number 4
 {
@@ -117,11 +118,11 @@ for (int i=0; i<=180; i++)
   delay(5);
   if (i==0)
   bend9=1;}
-  delay(500);}
+  delay(700);}
 
       if(incomingByte == 55) // ASCII printable characters:  means number 7
 {
-  if (bend12==0)
+  if (bend7==0)
   continue;
   asd.attach(7);
 for (int i=0; i<=180; i++)
@@ -129,12 +130,12 @@ for (int i=0; i<=180; i++)
   asd.write(i);
   delay(5);
   if (i==180)
-  bend12=0;  }
-  delay(500);
+  bend7=0;  }
+  delay(700);
 }
  else if(incomingByte == 54)  // ASCII printable characters:  means number 6
 {
-  if (bend12==1)
+  if (bend7==1)
   continue;  
   asd.attach(7);
   for (int i=180; i>=0; i--)
@@ -142,7 +143,37 @@ for (int i=0; i<=180; i++)
   asd.write(i);
   delay(5);
   if (i==0)
-  bend12=1;}
-  delay(500);}
-  }}}
+  bend7=1;}
+  delay(700);}
+
+  if(incomingByte == 56) // ASCII printable characters:  means number 2
+{
+  if (bend11==1)
+  continue;
+  asd.attach(11);
+for (int i=0; i<=180; i++)
+{
+  asd.write(i);
+  delay(5);
+  if (i==180)
+  bend11=1;  }
+  delay(700);
+}
+ else if(incomingByte == 57)  // ASCII printable characters: means number 3
+{
+  if (bend11==0)
+  continue; 
+  asd.attach(11); 
+  for (int i=180; i>=0; i--)
+{
+  asd.write(i);
+  delay(5);
+  if (i==0)
+  bend11=0;}
+  delay(700);}
+
+
+  }
+  
+  }}
 
